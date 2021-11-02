@@ -1,10 +1,11 @@
 const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
+const routes = require('./controllers');
 
 const PORT = process.env.PORT || 3000;
 
-// const User = require("./userModel.js");
+const Workout = require("./models/Workout");
 const app = express();
 
 app.use(logger("dev"));
@@ -14,17 +15,9 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/fitnessdb");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout");
 
-// app.post("/submit", ({body}, res) => {
-//   User.create(body)
-//     .then(dbUser => {
-//       res.json(dbUser);
-//     })
-//     .catch(err => {
-//       res.json(err);
-//     });
-// });
+app.use(routes);
 
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}!`);
