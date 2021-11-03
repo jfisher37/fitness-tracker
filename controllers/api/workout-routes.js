@@ -15,11 +15,10 @@ router.get("/", (req, res) => {
           totalDuration: { $sum: "$exercises.duration" },
         },
       },
-    ]).sort({ day: -1}, (error, data) => {
+    ]).then((error, data) => {
       if (error) {
         res.send(error);
       } else {
-
         res.json(data);
       }
     });
@@ -33,11 +32,10 @@ router.get("/", (req, res) => {
           totalDuration: { $sum: "$exercises.duration" },
         },
       },
-    ]).sort({ day: -1}, (error, data) => {
+    ]).then((error, data) => {
       if (error) {
         res.send(error);
       } else {
-
         res.json(data);
       }
     });
