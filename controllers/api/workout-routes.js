@@ -42,6 +42,7 @@ router.get("/", (req, res) => {
   });
 
   router.post("/", (req, res) => {
+    console.log("POST",req.body);
     db.Workout.create(req.body)
     .then((data) => {
       res.json(data);
@@ -52,13 +53,16 @@ router.get("/", (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
+  console.log("PUT", req.body);
   db.Workout.findOneAndUpdate(
     { _id: req.params.id },
     {
-      $push: { "exercises": req.body },
+      $push: { exercises: req.body },
     },
+    { new: true }
   )
     .then((data) => {
+      console.log(data);
       res.json(data);
     })
     .catch((error) => {
